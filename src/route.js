@@ -1,7 +1,6 @@
 import fs from 'fs';
 import express from 'express';
 
-
 export const getRoute = async () => {
     const router = express.Router();
 
@@ -46,13 +45,12 @@ export const getRoute = async () => {
         const params = exec.params || {};
 
         const route_uri = path.replace(/\{([a-zA-Z0-9\_]+)\}/g, ':$1');
-        console.log('route_uri', route_uri);
-        
+
         router[method](
             route_uri,
             async (req, res, next) => {
                 if (!exec.execute) {
-                res.status(404).json({});
+                    res.status(404).json({});
                 } else {
                     try {
                         const args = {
@@ -67,19 +65,22 @@ export const getRoute = async () => {
                             path: req.params,
                             user: req.user,
                         };
+
+                        if (exec.execute.length >= 3) {
+                            return await exec.execute(req, res, next, { params });
+                        } else {
+                            const output = await exec.execute(args);
+                            res.status(200).json(output);
+                        }
                     } catch (e) {
                         if (e?.status === 301) {
-                        res.redirect(301, e.location);
+                            res.redirect(301, e.location);
                         } else if (e?.status) {
-                        res.status(e?.status).json({ message: e?.message, data: e?.data });
+                            res.status(e?.status).json({ message: e?.message, data: e?.data });
                         } else {
-                        if (!e?.status) {
-                            console.warn('>>> ', route_uri);
-                            console.warn(e);
-                        }
-                        res
-                            .status(e?.status || 500)
-                            .json({ uri: route_uri, message: e?.message, data: e?.data || JSON.stringify(e) });
+                            res
+                                .status(e?.status || 500)
+                                .json({ uri: route_uri, message: e?.message, data: e?.data || JSON.stringify(e) });
                         }
                     }
                 }
