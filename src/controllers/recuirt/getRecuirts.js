@@ -1,8 +1,8 @@
-import requirtService from '../../services/requirtService';
+import recuirtService from '../../services/recuirtService';
 
 export const execute = async () => {
     try {
-        const result = await requirtService.getRequirts();
+        const result = await recuirtService.getRequirts();
         return result;
     } catch (e) {
         throw e;

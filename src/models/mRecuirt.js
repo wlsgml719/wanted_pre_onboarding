@@ -5,8 +5,8 @@ import mCompainy from './mCompany';
 const ENUM_POSITION = DataTypes.ENUM('BACKEND','FRONTEND','DESIGNER','PLANNER');
 const ENUM_SKILL = DataTypes.ENUM('PYTHON','NODE');
 
-const mRequirt = models.define(
-    'requirt',
+const mRecuirt = models.define(
+    'recuirt',
     {
         id: { type: DataTypes.INTEGER, allowNull: false, comment: '지원 ID', primaryKey: true },
         company_id: { type: DataTypes.INTEGER, allowNull: false, comment: '회사 ID', primaryKey: false },
@@ -19,12 +19,12 @@ const mRequirt = models.define(
         timestamps: false,
         charset: 'utf8mb4',
         collate: 'utf8mb4_general_ci',
-        tableName: 'requirt',
+        tableName: 'recuirt',
   }
 )
 
-mRequirt.associate = () => {
-  mRequirt.belongsTo(mCompainy, { foreignKey: 'company_id' });
+mRecuirt.associate = () => {
+  mRecuirt.belongsTo(mCompainy, { foreignKey: 'company_id' });
 }
 
-export default mRequirt;
+export default mRecuirt;
