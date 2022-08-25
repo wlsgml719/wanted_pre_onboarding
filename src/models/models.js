@@ -1,15 +1,15 @@
 import { Sequelize } from 'sequelize';
-import config from '../config';
+import db_config from '../config/db';
 
 const args = {};
 
-args.user = config.user;
-args.password = config.password;
+args.user = db_config.user;
+args.password = db_config.password;
 args.options = {
-    host: config.host,
-    dialect: config.dialect,
+    host: '127.0.0.1',
+    dialect: 'mysql',
     timezone: '+09:00',
 };
 
-const models = new Sequelize(config.database, args.user, args.password, args.options);
+const models = new Sequelize(db_config.database, args.user, args.password, args.options);
 export default models;

@@ -7,8 +7,8 @@ module.exports = {
     config.db_read_host || '127.0.0.1',
   host: config.db_host || '127.0.0.1',
   port: config.db_port || '3306',
-  user: config.db_user || 'jinhee',
-  password: config.db_pass || 'mkjsh22887!',
+  user: config.db_user || 'root',
+  password: config.db_pass || 'mkjsH22887!',
   database: config.db_name || 'wanted',
   connectionLimit: 20,
   waitForConnections: false
