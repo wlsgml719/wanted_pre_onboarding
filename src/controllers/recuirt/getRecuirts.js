@@ -1,12 +1,12 @@
-import recuirtService from '../../services/recuirtService';
+import recuirtService from "../../services/recuirtService";
 
-export const execute = async () => {
-    try {
-        const result = await recuirtService.getRequirts();
-        return result;
-    } catch (e) {
-        throw e;
-    }
+export const execute = async (req, res) => {
+  try {
+    const result = await recuirtService.getRecuirts(req, res);
+    return result;
+  } catch (e) {
+    throw e;
+  }
 };
 
 export default execute;
