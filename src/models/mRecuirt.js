@@ -25,16 +25,6 @@ const mRecuirt = models.define(
       allowNull: false,
       comment: "회사 ID",
     },
-    country_id: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      comment: "국가 ID",
-    },
-    area_id: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      comment: "지역 ID",
-    },
     position: {
       type: DataTypes.ENUM,
       values: ["BACKEND", "FRONTEND", "DESIGNER", "PLANNER"],
