@@ -1,6 +1,15 @@
 import mCompany from "../models/mCompany";
 import mRecuirt from "../models/mRecuirt";
 
+export const getRecuirt = async (id) => {
+  try {
+    const result = await mRecuirt.findOne({ where: { id } });
+    return result;
+  } catch (e) {
+    throw e;
+  }
+};
+
 export const getRecuirts = async (offset = 1, limit = 10) => {
   try {
     const result = await mRecuirt.findAll({
@@ -30,7 +39,7 @@ export const postRecuirt = async ({ company_id, ...data }) => {
       skill,
     });
 
-    return result.dataValues;
+    return result;
   } catch (e) {
     throw { message: e.message, data };
   }
@@ -68,4 +77,10 @@ export const deleteRecuirt = async (id) => {
   }
 };
 
-export default { getRecuirts, postRecuirt, putRecuirt, deleteRecuirt };
+export default {
+  getRecuirt,
+  getRecuirts,
+  postRecuirt,
+  putRecuirt,
+  deleteRecuirt,
+};
