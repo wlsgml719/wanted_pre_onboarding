@@ -45,7 +45,11 @@ const mCompany = models.define(
   }
 );
 
-mCompany.hasMany(mRecuirt, { sourceKey: "id", foreignKey: "company_id" });
+mCompany.hasMany(mRecuirt, {
+  sourceKey: "id",
+  foreignKey: "company_id",
+  as: "recuirts",
+});
 mRecuirt.belongsTo(mCompany, { foreignKey: "company_id" });
 
 export default mCompany;

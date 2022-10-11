@@ -1,10 +1,25 @@
-import { or, Op } from "sequelize";
+import { or, Op, fn } from "sequelize";
 import mCompany from "../models/mCompany";
 import mRecuirt from "../models/mRecuirt";
 
 export const getRecuirt = async (id) => {
   try {
-    const result = await mRecuirt.findOne({ where: { id } });
+    const result = await mRecuirt.findOne({
+      where: { id },
+      include: [
+        {
+          model: mCompany,
+          require: true,
+          include: [
+            {
+              model: mRecuirt,
+              as: "recuirts",
+              where: { id: { [Op.ne]: id } },
+            },
+          ],
+        },
+      ],
+    });
     return result;
   } catch (e) {
     throw e;
