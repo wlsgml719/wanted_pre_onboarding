@@ -1,4 +1,3 @@
-import e from "express";
 import mCompany from "../models/mCompany";
 import mRecuirt from "../models/mRecuirt";
 
@@ -33,4 +32,24 @@ export const postRecuirt = async ({ company_id, ...data }) => {
   }
 };
 
-export default { getRecuirts, postRecuirt };
+export const putRecuirt = async (id, data) => {
+  try {
+    const recuirt = await mRecuirt.findOne({ where: { id } });
+
+    if (!recuirt)
+      throw { status: 400, message: "존재하지않는 채용공고 입니다." };
+
+    const { position, compensation, content, skill } = data;
+
+    recuirt.position = position;
+    recuirt.compensation = compensation;
+    recuirt.content = content;
+    recuirt.skill = skill;
+
+    return recuirt.save();
+  } catch (e) {
+    throw { message: e.message, data };
+  }
+};
+
+export default { getRecuirts, postRecuirt, putRecuirt };

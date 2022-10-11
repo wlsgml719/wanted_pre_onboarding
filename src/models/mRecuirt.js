@@ -56,10 +56,4 @@ const mRecuirt = models.define(
   }
 );
 
-mRecuirt.associate = () => {
-  mRecuirt.belongsTo(mCompany, "company_id");
-  mRecuirt.belongsTo(mCountry, "country_id");
-  mRecuirt.belongsTo(mArea, "area_id");
-};
-
 export default mRecuirt;
