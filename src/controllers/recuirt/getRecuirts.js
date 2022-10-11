@@ -6,8 +6,12 @@ export const request = {
 };
 
 export const execute = async () => {
-  const result = await recuirtService.getRecuirts();
-  return result;
+  try {
+    const result = await recuirtService.getRecuirts();
+    return result;
+  } catch (e) {
+    throw e;
+  }
 };
 
 export default execute;

@@ -1,5 +1,8 @@
 import * as DataTypes from "sequelize";
 import models from "./models";
+import mCompany from "./mCompany";
+import mCountry from "./mCountry";
+import mArea from "./mArea";
 
 const mRecuirt = models.define(
   "recuirt",
@@ -21,6 +24,16 @@ const mRecuirt = models.define(
       type: DataTypes.INTEGER,
       allowNull: false,
       comment: "회사 ID",
+    },
+    country_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      comment: "국가 ID",
+    },
+    area_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      comment: "지역 ID",
     },
     position: {
       type: DataTypes.ENUM,
@@ -52,5 +65,11 @@ const mRecuirt = models.define(
     tableName: "recuirt",
   }
 );
+
+mRecuirt.associate = () => {
+  mRecuirt.belongsTo(mCompany, "company_id");
+  mRecuirt.belongsTo(mCountry, "country_id");
+  mRecuirt.belongsTo(mArea, "area_id");
+};
 
 export default mRecuirt;

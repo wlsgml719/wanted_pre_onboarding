@@ -13,7 +13,6 @@ export const getRecuirts = async () => {
 
 export const postRecuirt = async ({ body }) => {
   try {
-    console.log(body);
     const result = await mRecuirt.create(body);
     return JSON.stringify(result);
   } catch (e) {
