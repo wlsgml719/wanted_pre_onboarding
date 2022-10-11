@@ -20,6 +20,7 @@ const mCompany = models.define(
     },
     name: {
       type: DataTypes.STRING,
+      unique: true,
       allowNull: false,
       comment: "회사명",
     },
