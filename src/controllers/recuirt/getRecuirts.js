@@ -5,9 +5,12 @@ export const request = {
   method: "get",
 };
 
-export const execute = async () => {
+export const execute = async ({ query }) => {
   try {
-    const result = await recuirtService.getRecuirts();
+    const result = await recuirtService.getRecuirts(
+      query?.offset,
+      query?.limit
+    );
     return result;
   } catch (e) {
     throw e;

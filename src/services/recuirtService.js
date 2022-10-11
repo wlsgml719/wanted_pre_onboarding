@@ -1,10 +1,14 @@
 import mCompany from "../models/mCompany";
 import mRecuirt from "../models/mRecuirt";
 
-export const getRecuirts = async () => {
+export const getRecuirts = async (offset = 1, limit = 10) => {
   try {
-    const result = await mRecuirt.findAll({ include: mCompany });
-    return JSON.stringify(result);
+    const result = await mRecuirt.findAll({
+      include: mCompany,
+      limit: parseInt(limit),
+      offset: parseInt(offset),
+    });
+    return result;
   } catch (e) {
     throw e;
   }
