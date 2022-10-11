@@ -6,7 +6,7 @@ export const request = {
 };
 
 export const execute = async ({ body }) => {
-  const result = await recuirtService.postRecuirt({ body });
+  const result = await recuirtService.postRecuirt(body);
   return result;
 };
 
