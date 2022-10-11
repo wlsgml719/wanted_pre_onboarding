@@ -6,6 +6,8 @@ const appRun = async () => {
   const app = express();
   const route = await getRoute();
 
+  app.use(express.urlencoded({ extended: true }));
+
   app.get("/", (req, res) => {
     res.type("text/plain");
     res.status(200);
@@ -16,7 +18,7 @@ const appRun = async () => {
 
   app.use("/sync", async (req, res) => {
     try {
-      await models.sync({ force: true });
+      await models.sync({ alter: true });
       res.type("text/plain");
       res.status(200);
       res.send("db-sync");

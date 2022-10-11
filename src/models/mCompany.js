@@ -12,6 +12,12 @@ const mCompany = models.define(
       allowNull: false,
       comment: "회사 ID",
     },
+    created_at: {
+      type: DataTypes.DATE,
+      allowNull: false,
+      defaultValue: DataTypes.NOW,
+      comment: "생성일",
+    },
     name: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -31,6 +37,7 @@ const mCompany = models.define(
     },
   },
   {
+    timestamps: false,
     charset: "utf8mb4",
     collate: "utf8mb4_general_ci",
     tableName: "company",

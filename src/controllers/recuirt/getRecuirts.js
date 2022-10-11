@@ -1,12 +1,13 @@
 import recuirtService from "../../services/recuirtService";
 
-export const execute = async (req, res) => {
-  try {
-    const result = await recuirtService.getRecuirts(req, res);
-    return result;
-  } catch (e) {
-    throw e;
-  }
+export const request = {
+  path: "/recuirt/getRecuirts",
+  method: "get",
+};
+
+export const execute = async () => {
+  const result = await recuirtService.getRecuirts();
+  return result;
 };
 
 export default execute;

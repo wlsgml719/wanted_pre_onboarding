@@ -60,14 +60,13 @@ export const getRoute = async () => {
               ...req.body,
               ...req.query,
             },
-            files: req.files,
             body: req.body,
             query: req.query,
             path: req.params,
-            user: req.user,
           };
 
           if (exec.execute.length >= 3) {
+            console.log("exec Length >=3");
             return await exec.execute(req, res, next, { params });
           } else {
             const output = await exec.execute(args);

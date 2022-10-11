@@ -10,13 +10,17 @@ const mRecuirt = models.define(
       primaryKey: true,
       allowNull: false,
       comment: "지원 ID",
-      primaryKey: true,
+    },
+    created_at: {
+      type: DataTypes.DATE,
+      allowNull: false,
+      defaultValue: DataTypes.NOW,
+      comment: "생성일",
     },
     company_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
       comment: "회사 ID",
-      primaryKey: false,
     },
     position: {
       type: DataTypes.ENUM,
@@ -42,6 +46,7 @@ const mRecuirt = models.define(
     },
   },
   {
+    timestamps: false,
     charset: "utf8mb4",
     collate: "utf8mb4_general_ci",
     tableName: "recuirt",
