@@ -1,8 +1,5 @@
 import * as DataTypes from "sequelize";
 import models from "./models";
-import mCompany from "./mCompany";
-import mCountry from "./mCountry";
-import mArea from "./mArea";
 
 const mRecuirt = models.define(
   "recuirt",
@@ -26,8 +23,7 @@ const mRecuirt = models.define(
       comment: "회사 ID",
     },
     position: {
-      type: DataTypes.ENUM,
-      values: ["BACKEND", "FRONTEND", "DESIGNER", "PLANNER"],
+      type: DataTypes.STRING,
       allowNull: false,
       comment: "지원포지션",
     },

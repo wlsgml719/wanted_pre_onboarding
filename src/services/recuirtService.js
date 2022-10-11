@@ -1,3 +1,4 @@
+import { or, Op } from "sequelize";
 import mCompany from "../models/mCompany";
 import mRecuirt from "../models/mRecuirt";
 
@@ -77,10 +78,33 @@ export const deleteRecuirt = async (id) => {
   }
 };
 
+export const searchRecuirts = async (search, offset = 1, limit = 10) => {
+  try {
+    const result = await mRecuirt.findAll({
+      where: {
+        [Op.or]: [
+          {
+            position: { [Op.like]: search },
+          },
+          {
+            skill: search,
+          },
+        ],
+      },
+      offset: parseInt(offset),
+      limit: parseInt(limit),
+    });
+    return result;
+  } catch (e) {
+    throw e;
+  }
+};
+
 export default {
   getRecuirt,
   getRecuirts,
   postRecuirt,
   putRecuirt,
   deleteRecuirt,
+  searchRecuirts,
 };
