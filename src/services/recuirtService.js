@@ -52,4 +52,16 @@ export const putRecuirt = async (id, data) => {
   }
 };
 
-export default { getRecuirts, postRecuirt, putRecuirt };
+export const deleteRecuirt = async (id) => {
+  try {
+    const recuirt = await mRecuirt.findOne({ where: { id } });
+    if (!recuirt)
+      throw { status: 400, message: "존재하지않는 채용공고입니다." };
+
+    return recuirt.destroy();
+  } catch (e) {
+    throw e;
+  }
+};
+
+export default { getRecuirts, postRecuirt, putRecuirt, deleteRecuirt };
