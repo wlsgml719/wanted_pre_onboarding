@@ -1,5 +1,7 @@
 import * as DataTypes from "sequelize";
 import models from "./models";
+import mUser from "./mUser";
+import mUserRecuirts from "./mUserRecuirts";
 
 const mRecuirt = models.define(
   "recuirt",
@@ -51,5 +53,11 @@ const mRecuirt = models.define(
     tableName: "recuirt",
   }
 );
+
+mRecuirt.belongsToMany(mUser, {
+  through: mUserRecuirts,
+  foreignKey: "recuirt_id",
+  otherKey: "user_id",
+});
 
 export default mRecuirt;
