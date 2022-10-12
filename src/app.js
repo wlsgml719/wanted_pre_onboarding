@@ -16,14 +16,6 @@ const appRun = async () => {
 
   app.use("/v1", route);
 
-  app.get("/", (req, res) => {
-    res.type("text/plain");
-    res.status(200);
-    res.send("Index");
-  });
-
-  app.use("/v1", route);
-
   app.use("/sync", async (req, res) => {
     try {
       await models.sync({ alter: true });
