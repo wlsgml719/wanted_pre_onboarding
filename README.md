@@ -47,8 +47,8 @@ name(UK) varchar(255)
 #### 채용공고(recuirt)
 
 ```
-id(PK) INT
-company_id(FK) INT
+id(PK) int
+company_id(FK) int
 country enum
 area enum
 position varchar(255)
