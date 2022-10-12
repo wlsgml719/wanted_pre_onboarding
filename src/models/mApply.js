@@ -1,8 +1,8 @@
 import * as DataTypes from "sequelize";
 import models from "./models";
 
-const mUserRecuirts = models.define(
-  "userRecuirts",
+const mApply = models.define(
+  "apply",
   {
     user_id: {
       type: DataTypes.INTEGER,
@@ -27,8 +27,8 @@ const mUserRecuirts = models.define(
     timestamps: false,
     charset: "utf8mb4",
     collate: "utf8mb4_general_ci",
-    tableName: "userRecuirts",
+    tableName: "apply",
   }
 );
 
-export default mUserRecuirts;
+export default mApply;

@@ -1,7 +1,7 @@
 import * as DataTypes from "sequelize";
 import models from "./models";
 import mUser from "./mUser";
-import mUserRecuirts from "./mUserRecuirts";
+import mApply from "./mApply";
 
 const mRecuirt = models.define(
   "recuirt",
@@ -55,9 +55,17 @@ const mRecuirt = models.define(
 );
 
 mRecuirt.belongsToMany(mUser, {
-  through: mUserRecuirts,
+  through: mApply,
+  as: "users",
   foreignKey: "recuirt_id",
   otherKey: "user_id",
+});
+
+mUser.belongsToMany(mRecuirt, {
+  through: mApply,
+  as: "applys",
+  foreignKey: "user_id",
+  otherKey: "recuirt_id",
 });
 
 export default mRecuirt;

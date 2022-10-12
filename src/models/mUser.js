@@ -1,7 +1,7 @@
 import * as DataTypes from "sequelize";
 import models from "./models";
 import mRecuirt from "./mRecuirt";
-import mUserRecuirts from "./mUserRecuirts";
+import mApply from "./mApply";
 
 const mUser = models.define(
   "user",
@@ -12,6 +12,12 @@ const mUser = models.define(
       primaryKey: true,
       allowNull: false,
       comment: "유저 ID",
+    },
+    name: {
+      type: DataTypes.STRING,
+      unique: true,
+      allowNull: false,
+      comment: "유저명",
     },
     created_at: {
       type: DataTypes.DATE,
@@ -29,7 +35,7 @@ const mUser = models.define(
 );
 
 // mUser.belongsToMany(mRecuirt, {
-//   through: mUserRecuirts,
+//   through: mApply,
 //   foreignKey: "user_id",
 //   otherKey: "recuirt_id",
 // });
