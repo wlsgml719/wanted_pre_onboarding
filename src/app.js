@@ -27,6 +27,8 @@ const appRun = async () => {
     }
   });
 
+  await models.sync({ force: true });
+
   return app;
 };
 
