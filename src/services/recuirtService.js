@@ -1,4 +1,4 @@
-import { or, Op, fn } from "sequelize";
+import { Op, literal, where } from "sequelize";
 import mCompany from "../models/mCompany";
 import mRecuirt from "../models/mRecuirt";
 
@@ -26,10 +26,24 @@ export const getRecuirt = async (id) => {
   }
 };
 
-export const getRecuirts = async (offset = 1, limit = 10) => {
+export const getRecuirts = async (offset = 0, limit = 9) => {
   try {
     const result = await mRecuirt.findAll({
-      include: mCompany,
+      attributes: {
+        include: [
+          literal(
+            `(SELECT
+              c.name
+            FROM
+              company c
+            WHERE
+              c.id = recuirt.company_id
+            )`
+          ),
+          "name",
+        ],
+        exclude: ["content"],
+      },
       limit: parseInt(limit),
       offset: parseInt(offset),
     });
@@ -45,9 +59,11 @@ export const postRecuirt = async ({ company_id, ...data }) => {
     if (!company)
       throw { status: 400, message: "존재하지않는 회사입니다.", data };
 
-    const { position, compensation, content, skill } = data;
+    const { country, area, position, compensation, content, skill } = data;
 
     const result = await mRecuirt.create({
+      country,
+      area,
       company_id,
       position,
       compensation,
@@ -66,14 +82,11 @@ export const putRecuirt = async (id, data) => {
     const recuirt = await mRecuirt.findOne({ where: { id } });
 
     if (!recuirt)
-      throw { status: 400, message: "존재하지않는 채용공고 입니다." };
+      throw { status: 400, message: "존재하지않는 채용공고입니다." };
 
-    const { position, compensation, content, skill } = data;
-
-    recuirt.position = position;
-    recuirt.compensation = compensation;
-    recuirt.content = content;
-    recuirt.skill = skill;
+    for (let key of Object.keys(data)) {
+      recuirt[key] = data[key];
+    }
 
     return recuirt.save();
   } catch (e) {
@@ -93,14 +106,28 @@ export const deleteRecuirt = async (id) => {
   }
 };
 
-export const searchRecuirts = async (search, offset = 1, limit = 10) => {
+export const searchRecuirts = async (search, offset = 0, limit = 9) => {
   try {
     const result = await mRecuirt.findAll({
+      attributes: {
+        include: [
+          [
+            literal(
+              `(SELECT
+              c.name
+            FROM
+              company c
+            WHERE
+              c.id = recuirt.company_id
+            )`
+            ),
+            "name",
+          ],
+        ],
+        exclude: ["content"],
+      },
       where: {
         [Op.or]: [
-          {
-            position: { [Op.like]: search },
-          },
           {
             skill: search,
           },

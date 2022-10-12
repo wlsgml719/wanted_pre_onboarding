@@ -24,6 +24,18 @@ const mRecuirt = models.define(
       allowNull: false,
       comment: "회사 ID",
     },
+    country: {
+      type: DataTypes.ENUM,
+      values: ["한국", "미국", "중국"],
+      allowNull: false,
+      comment: "국가명",
+    },
+    area: {
+      type: DataTypes.ENUM,
+      values: ["서울", "부산", "대구"],
+      allowNull: false,
+      comment: "지역명",
+    },
     position: {
       type: DataTypes.STRING,
       allowNull: false,

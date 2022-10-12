@@ -34,10 +34,4 @@ const mUser = models.define(
   }
 );
 
-// mUser.belongsToMany(mRecuirt, {
-//   through: mApply,
-//   foreignKey: "user_id",
-//   otherKey: "recuirt_id",
-// });
-
 export default mUser;
