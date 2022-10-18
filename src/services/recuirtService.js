@@ -1,4 +1,4 @@
-import { Op, literal, where } from "sequelize";
+import { Op, literal } from "sequelize";
 import mCompany from "../models/mCompany";
 import mRecuirt from "../models/mRecuirt";
 
@@ -110,27 +110,17 @@ export const searchRecuirts = async (search, offset = 0, limit = 9) => {
   try {
     const result = await mRecuirt.findAll({
       attributes: {
-        include: [
-          [
-            literal(
-              `(SELECT
-              c.name
-            FROM
-              company c
-            WHERE
-              c.id = recuirt.company_id
-            )`
-            ),
-            "name",
-          ],
-        ],
         exclude: ["content"],
+      },
+      include: {
+        model: mCompany,
       },
       where: {
         [Op.or]: [
           {
             skill: search,
           },
+          literal(`\`company\`.\`name\` LIKE '%${search}%'`),
         ],
       },
       offset: parseInt(offset),
