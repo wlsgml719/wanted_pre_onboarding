@@ -31,16 +31,18 @@ export const getRecuirts = async (offset = 0, limit = 9) => {
     const result = await mRecuirt.findAll({
       attributes: {
         include: [
-          literal(
-            `(SELECT
+          [
+            literal(
+              `(SELECT
               c.name
             FROM
               company c
             WHERE
               c.id = recuirt.company_id
             )`
-          ),
-          "name",
+            ),
+            "name",
+          ],
         ],
         exclude: ["content"],
       },
